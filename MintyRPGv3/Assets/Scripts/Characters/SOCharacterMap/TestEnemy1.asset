@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7cd15bff86288e4ca2626f0a2bc37bc, type: 3}
+  m_Name: TestEnemy1
+  m_EditorClassIdentifier: 
+  CharacterName: TestEnemy1
+  CharacterMaxHP: 9
+  CharacterCurrentHP: 9
+  CharacterAttack: 3
+  CharacterHeal: 0
+  CharacterPoisonous: 0
+  CharacterAlive: 0
+  CharacterPoisoned: 0
+  CharacterRegen: 0
+  CharacterIdle: {fileID: 2100000, guid: 96501cabb2db2cb49ba671718593f9f5, type: 2}
+  CharacterHurt: {fileID: 2100000, guid: deccf8889a45993489fe769d206e8668, type: 2}
+  CharacterAttacking: {fileID: 2100000, guid: 68779e50cf5416c4cae3fd263e884a3f, type: 2}
+  CharacterHealing: {fileID: 2100000, guid: fc3847d9fef9ed14d886393ae9f8a737, type: 2}
