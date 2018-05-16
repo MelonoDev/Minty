@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ActivTargetAllAllies : MonoBehaviour {
 
-
 	public bool ActivatedAlliesTarget = false;
 	public string CurrentHeal = "None";
 
