@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Name: TestEnemy2
   m_EditorClassIdentifier: 
   CharacterName: TestEnemy2
+  CharacterNumber: 2
   CharacterMaxHP: 5
   CharacterCurrentHP: 5
   CharacterAttack: 3

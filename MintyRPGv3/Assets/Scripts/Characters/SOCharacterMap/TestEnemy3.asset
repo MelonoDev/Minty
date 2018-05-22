@@ -12,14 +12,15 @@ MonoBehaviour:
   m_Name: TestEnemy3
   m_EditorClassIdentifier: 
   CharacterName: TestEnemy3
+  CharacterNumber: 3
   CharacterMaxHP: 5
-  CharacterCurrentHP: 1
+  CharacterCurrentHP: 5
   CharacterAttack: 3
   CharacterHeal: 0
   CharacterPoisonous: 0
   CharacterAlive: 1
   CharacterPoisoned: 0
-  CharacterRegen: 1
+  CharacterRegen: 0
   CharacterPermaDeath: 0
   IsIdle: 1
   IsHurt: 0

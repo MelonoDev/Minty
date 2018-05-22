@@ -34,7 +34,12 @@ public class BecomeSOCharacter : MonoBehaviour {
 			GetComponent<Renderer> ().material = soCharacter.CharacterIdle;
 		
 		}
+		if (soCharacter.IsHurt) {
+			GetComponent<Renderer> ().material = soCharacter.CharacterHurt;
+		}
 	}
+
+	//	public void IsAttacking(int charNum){}
 
 	void FixedUpdate (){
 		if (soCharacter.CharacterCurrentHP > soCharacter.CharacterMaxHP) {
@@ -51,4 +56,5 @@ public class BecomeSOCharacter : MonoBehaviour {
 		soCharacter.IsHurt = false;
 		soCharacter.IsIdle = true;
 	}
+
 }

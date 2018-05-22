@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Name: Minty
   m_EditorClassIdentifier: 
   CharacterName: Minty
+  CharacterNumber: 3
   CharacterMaxHP: 5
   CharacterCurrentHP: 5
   CharacterAttack: 3

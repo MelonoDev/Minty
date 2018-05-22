@@ -29,8 +29,13 @@ public class HealAttackObject : MonoBehaviour {
 	public SimpleHealthBar HPBEnemy1;
 
 	//Extra turn numbers so you only target those alive
-	private int ExtraTurnDeadAlly = 0; //for Enemies to attack allies
-	private int ExtraTurnDeadEnemy = 0; //for Allies to attack enemies
+	private int ExtraTurnDeadAlly1 = 0; //for Enemies to attack allies
+	private int ExtraTurnDeadAlly2 = 0; //for Enemies to attack allies
+	private int ExtraTurnDeadAlly3 = 0; //for Enemies to attack allies
+
+	private int ExtraTurnDeadEnemy1 = 0; //for Allies to attack enemies
+	private int ExtraTurnDeadEnemy2 = 0; //for Allies to attack enemies
+	private int ExtraTurnDeadEnemy3 = 0; //for Allies to attack enemies
 
 	//SKILLS amounts
 	private int healAmount = 1;
@@ -98,7 +103,7 @@ public class HealAttackObject : MonoBehaviour {
 
 	public void EnemyAttack (int WhichEnemy){
 	
-		PlusTurnDeadAlly ();
+		PlusTurnDeadAlly1 ();
 
 		if (WhichEnemy == 1) {
 			SOEnemy1.IsAttacking = true;
@@ -108,22 +113,51 @@ public class HealAttackObject : MonoBehaviour {
 			SOEnemy3.IsAttacking = true;
 		} 
 
-		Debug.Log (turnsStateMachine.TurnAmount);
 
-		if ((WhichEnemy == 1) && (SOEnemy1.CharacterAlive)) {
-			if ((turnsStateMachine.TurnAmount) % 3 == 1) { //Enemy attacks every turn someone else, and only different targets.
-				Debug.Log ("Ally1Attacked");
-			}
-			if ((turnsStateMachine.TurnAmount) % 3 == 2) {
-				Debug.Log ("Ally2Attacked");
-			}
-			if ((turnsStateMachine.TurnAmount) % 3 == 0) {
-				Debug.Log ("Ally3Attacked");
+
+		if (WhichEnemy == 1) {
+
+
+			if (SOEnemy1.CharacterAlive){
+				if ((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy1) % 3 == 1) { //Enemy attacks every turn someone else, and only different targets.
+					Debug.Log ("Ally1Attacked");
+					SOAlly1.CharacterCurrentHP -= SOEnemy1.CharacterAttack;
+					SOAlly1.Chara = true;
+					UpdateHPBarAlly1 ();
+				}
+				if ((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy1) % 3 == 2) {
+					Debug.Log ("Ally2Attacked");
+					SOAlly2.CharacterCurrentHP -= SOEnemy2.CharacterAttack;
+					UpdateHPBarAlly2 ();
+				}
+				if ((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy1) % 3 == 0) {
+					Debug.Log ("Ally3Attacked");
+					SOAlly3.CharacterCurrentHP -= SOEnemy3.CharacterAttack;
+					UpdateHPBarAlly3 ();
+				}
 			}
 		}
 
+		if (WhichEnemy == 2) {
+			if (SOEnemy1.CharacterAlive){
+				if ((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly1) % 3 == 2) { //Enemy attacks every turn someone else, and only different targets.
+					Debug.Log ("Ally1Attacked");
+					SOAlly1.CharacterCurrentHP -= SOEnemy1.CharacterAttack;
+					UpdateHPBarAlly1 ();
+				}
+				if ((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly2) % 3 == 0) {
+					Debug.Log ("Ally2Attacked");
+					SOAlly2.CharacterCurrentHP -= SOEnemy2.CharacterAttack;
+					UpdateHPBarAlly2 ();
+				}
+				if ((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly3) % 3 == 1) {
+					Debug.Log ("Ally3Attacked");
+					SOAlly3.CharacterCurrentHP -= SOEnemy3.CharacterAttack;
+					UpdateHPBarAlly3 ();
+				}
+			}
+		}
 	}
-
 
 	public void PoisonTurnEnemies(){
 		if (SOEnemy1.CharacterPoisoned == true) {
@@ -224,17 +258,11 @@ public class HealAttackObject : MonoBehaviour {
 
 
 
-	void PlusTurnDeadAlly (){
-		if (((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly) % 3 == 0) && (!SOAlly3.CharacterAlive)) {
-			ExtraTurnDeadAlly += 1;
-		} else if (((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly) % 3 == 1) && (!SOAlly1.CharacterAlive)) {
-			ExtraTurnDeadAlly += 1;
-		} else if (((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly) % 3 == 2) && (!SOAlly2.CharacterAlive)) {
-			ExtraTurnDeadAlly += 1;
-		}
+	void PlusTurnDeadAlly1 (){
+		
 	}
 
-	void PlusTurnDeadEnemy (){
+/*	void PlusTurnDeadEnemy1 (){
 		if (((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly) % 3 == 0) && (!SOEnemy3.CharacterAlive)) {
 			ExtraTurnDeadAlly += 1;
 		} else if (((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly) % 3 == 1) && (!SOEnemy1.CharacterAlive)) {
@@ -242,5 +270,5 @@ public class HealAttackObject : MonoBehaviour {
 		} else if (((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly) % 3 == 2) && (!SOEnemy2.CharacterAlive)) {
 			ExtraTurnDeadAlly += 1;
 		}
-	}
-}
+	}*/
+} 

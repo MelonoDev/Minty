@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Name: OldBro
   m_EditorClassIdentifier: 
   CharacterName: Old Brother
+  CharacterNumber: 1
   CharacterMaxHP: 10
   CharacterCurrentHP: 10
   CharacterAttack: 6
   CharacterHeal: 0
   CharacterPoisonous: 0
-  CharacterAlive: 0
+  CharacterAlive: 1
   CharacterPoisoned: 0
   CharacterRegen: 0
   CharacterPermaDeath: 0

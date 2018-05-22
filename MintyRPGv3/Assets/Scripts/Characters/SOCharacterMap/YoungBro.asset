@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Name: YoungBro
   m_EditorClassIdentifier: 
   CharacterName: Young Brother
+  CharacterNumber: 2
   CharacterMaxHP: 7
   CharacterCurrentHP: 7
   CharacterAttack: 4
   CharacterHeal: 0
   CharacterPoisonous: 0
-  CharacterAlive: 0
+  CharacterAlive: 1
   CharacterPoisoned: 0
   CharacterRegen: 0
   CharacterPermaDeath: 0

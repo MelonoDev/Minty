@@ -12,14 +12,20 @@ MonoBehaviour:
   m_Name: TestEnemy1
   m_EditorClassIdentifier: 
   CharacterName: TestEnemy1
+  CharacterNumber: 1
   CharacterMaxHP: 9
   CharacterCurrentHP: 9
   CharacterAttack: 3
   CharacterHeal: 0
   CharacterPoisonous: 0
-  CharacterAlive: 0
+  CharacterAlive: 1
   CharacterPoisoned: 0
   CharacterRegen: 0
+  CharacterPermaDeath: 0
+  IsIdle: 1
+  IsHurt: 0
+  IsAttacking: 0
+  IsHealing: 0
   CharacterIdle: {fileID: 2100000, guid: 96501cabb2db2cb49ba671718593f9f5, type: 2}
   CharacterHurt: {fileID: 2100000, guid: deccf8889a45993489fe769d206e8668, type: 2}
   CharacterAttacking: {fileID: 2100000, guid: 68779e50cf5416c4cae3fd263e884a3f, type: 2}
