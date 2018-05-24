@@ -39,6 +39,7 @@ public class TurnsStateMachine : MonoBehaviour {
 
 	//seconds for poison and regen to take in the turn
 	private float poisonTime = 1f;	private float regenTime	= 1f;
+	private float attackTime = 2f;
   
 
 	//Calling for a single action in a State.whatever
@@ -107,8 +108,8 @@ public class TurnsStateMachine : MonoBehaviour {
 				print ("Ally1");
 
 				//first ally attacks
+				Invoke ("AllyAtt1", attackTime);
 
-				NextState ();
 
 			}
 
@@ -119,8 +120,9 @@ public class TurnsStateMachine : MonoBehaviour {
 			if (singleActionAlly2) {
 				singleActionAlly2 = !singleActionAlly2;
 				print ("Ally2");
+				Invoke ("AllyAtt2", attackTime);
+
 				//second ally attacks
-				NextState();
 
 			}
 
@@ -217,10 +219,10 @@ public class TurnsStateMachine : MonoBehaviour {
 			if ((singleActionEnemy1) && (Enemy1.CharacterAlive)) {
 				singleActionEnemy1 = !singleActionEnemy1;
 				print ("Enemy1");
-				healAttackObject.EnemyAttack (1);
-				NextState ();
+				Invoke ("EnemyAtt1", attackTime);
 
-			} else {
+			} 
+			if (!(Enemy1.CharacterAlive)){
 				NextState ();
 			}
 
@@ -229,12 +231,12 @@ public class TurnsStateMachine : MonoBehaviour {
 		case State.Enemy2:
 
 			if ((singleActionEnemy2) && (Enemy2.CharacterAlive)) {
-				singleActionEnemyBegin = !singleActionEnemyBegin;
+				singleActionEnemy2 = !singleActionEnemy2;
 				print ("Enemy2");
-				healAttackObject.EnemyAttack (2);
-				NextState ();
+				Invoke ("EnemyAtt2", attackTime); 
 
-			} else {
+			} 
+			if (!(Enemy2.CharacterAlive)){
 				NextState ();
 			}
 
@@ -243,12 +245,12 @@ public class TurnsStateMachine : MonoBehaviour {
 		case State.Enemy3:
 
 			if ((singleActionEnemy3) && (Enemy3.CharacterAlive)) {
-				singleActionEnemyBegin = !singleActionEnemyBegin;
+				singleActionEnemy3 = !singleActionEnemy3;
 				print ("Enemy3");
-				healAttackObject.EnemyAttack (3);
-				NextState ();
+				Invoke ("EnemyAtt3", attackTime);
 
-			} else {
+			} 
+			if (!(Enemy3.CharacterAlive)){
 				NextState ();
 			}
 
@@ -317,8 +319,30 @@ public class TurnsStateMachine : MonoBehaviour {
 	}
 
 
+	//Automatic attacking enemies/allies
+	void AllyAtt1(){
+		healAttackObject.AllyAttack (1);
+		NextState ();
+	}
+	void AllyAtt2(){
+		healAttackObject.AllyAttack (2);
+		NextState ();
+	}
+	void EnemyAtt1(){
+		healAttackObject.EnemyAttack (1);
+		NextState ();
+	}
+	void EnemyAtt2(){
+		healAttackObject.EnemyAttack (2);
+		NextState ();
+	}
+	void EnemyAtt3(){
+		healAttackObject.EnemyAttack (3);
+		NextState ();
+	}
+
 	//Changing the state 
-	void NextState(){
+	public void NextState(){
 		CurrentState += 1; 
 	}		
 

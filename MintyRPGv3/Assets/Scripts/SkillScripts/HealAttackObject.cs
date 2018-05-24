@@ -29,13 +29,13 @@ public class HealAttackObject : MonoBehaviour {
 	public SimpleHealthBar HPBEnemy1;
 
 	//Extra turn numbers so you only target those alive
-	private int ExtraTurnDeadAlly1 = 0; //for Enemies to attack allies
-	private int ExtraTurnDeadAlly2 = 0; //for Enemies to attack allies
-	private int ExtraTurnDeadAlly3 = 0; //for Enemies to attack allies
+	private int ExtraTurnDeadAlly1 = 0; //for attack allies
+	private int ExtraTurnDeadAlly2 = 0; //for attack allies
+	private int ExtraTurnDeadAlly3 = 0; //for attack allies
 
-	private int ExtraTurnDeadEnemy1 = 0; //for Allies to attack enemies
-	private int ExtraTurnDeadEnemy2 = 0; //for Allies to attack enemies
-	private int ExtraTurnDeadEnemy3 = 0; //for Allies to attack enemies
+	private int ExtraTurnDeadEnemy1 = 0; //for attack enemies
+	private int ExtraTurnDeadEnemy2 = 0; //for attack enemies
+	private int ExtraTurnDeadEnemy3 = 0; //for attack enemies
 
 	//SKILLS amounts
 	private int healAmount = 1;
@@ -64,6 +64,9 @@ public class HealAttackObject : MonoBehaviour {
 		if (activTargetAllies.CurrentHeal == "HealSingleTarget"){
 			healSingleTarget (TargetPos);
 		}
+		if (activTargetAllies.CurrentHeal == "HealOverTime") {
+			healOverTime (TargetPos);
+		}
 
 
 	}
@@ -76,8 +79,8 @@ public class HealAttackObject : MonoBehaviour {
 
 	}
 		
-	//Attacks
-	public void healSingleTarget (string Trgt){
+	//Attacks minty
+	void healSingleTarget (string Trgt){
 
 		if (Trgt == "Minty") {
 			SOAlly3.CharacterCurrentHP += healAmount;
@@ -88,22 +91,117 @@ public class HealAttackObject : MonoBehaviour {
 			SOAlly2.CharacterCurrentHP += healAmount;
 			allyMinty.IsHealing = true;
 			UpdateHPBarAlly2 ();
-
 		}
 		if (Trgt == "OldBro") {
 			SOAlly1.CharacterCurrentHP += healAmount;
 			allyMinty.IsHealing = true;
 			UpdateHPBarAlly1 ();
-
 		}
+	}
 
+	void healOverTime (string Trgt){
+
+		if (Trgt == "Minty") {
+			SOAlly3.CharacterRegen = true;
+			allyMinty.IsHealing = true;
+		}
+		if (Trgt == "YoungBro") {
+			SOAlly2.CharacterRegen = true;
+			allyMinty.IsHealing = true;
+		}
+		if (Trgt == "OldBro") {
+			SOAlly1.CharacterRegen = true;
+			allyMinty.IsHealing = true;
+		}
 
 	}
 
 
+
+
+	public void AllyAttack (int WhichAlly){
+		if (WhichAlly == 1) {
+			SOAlly1.IsAttacking = true;
+		} else if (WhichAlly == 2) {
+			SOAlly2.IsAttacking = true;
+		} else if (WhichAlly == 3) {
+			SOAlly3.IsAttacking = true;
+		} 
+
+		if (WhichAlly == 1) {
+
+
+
+			if (SOAlly1.CharacterAlive){
+				if (((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly1) % 3 == 1) && (!SOEnemy1.CharacterAlive)) {
+					ExtraTurnDeadAlly1 += 1;
+				}
+				if (((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly1) % 3 == 2) && (!SOEnemy2.CharacterAlive)) {
+					ExtraTurnDeadAlly1 += 1;
+				}
+				if (((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly1) % 3 == 0) && (!SOEnemy3.CharacterAlive)) {
+					ExtraTurnDeadAlly1 += 1;
+				}
+
+				if ((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly1) % 3 == 1) { //Enemy attacks every turn someone else, and only different targets.
+					Debug.Log ("Enemy1Attacked");
+					SOEnemy1.CharacterCurrentHP -= SOAlly1.CharacterAttack;
+					SOEnemy1.IsHurt = true;
+					UpdateHPBarEnemy1 ();
+				}
+				if ((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly1) % 3 == 2) {
+					Debug.Log ("Enemy2Attacked");
+					SOEnemy2.CharacterCurrentHP -= SOAlly1.CharacterAttack;
+					SOEnemy2.IsHurt = true;
+					UpdateHPBarEnemy2 ();
+				}
+				if ((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly1) % 3 == 0) {
+					Debug.Log ("Enemy3Attacked");
+					SOEnemy3.CharacterCurrentHP -= SOAlly1.CharacterAttack;
+					SOEnemy3.IsHurt = true;
+					UpdateHPBarEnemy3 ();
+				}
+				//ExtraTurnDeadEnemy1 = 0; 
+			}
+		}
+
+		if (WhichAlly == 2) {
+			if (SOAlly2.CharacterAlive){
+				if (((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly2) % 3 == 0) && (!SOEnemy1.CharacterAlive)) {
+					ExtraTurnDeadAlly2 += 1;
+				}
+				if (((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly2) % 3 == 1) && (!SOEnemy2.CharacterAlive)) {
+					ExtraTurnDeadAlly2 += 1;
+				}
+				if (((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly2) % 3 == 2) && (!SOEnemy3.CharacterAlive)) {
+					ExtraTurnDeadAlly2 += 1;
+				}
+
+				if ((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly2) % 3 == 0) { //Enemy attacks every turn someone else, and only different targets.
+					Debug.Log ("Enemy1Attacked");
+					SOEnemy1.CharacterCurrentHP -= SOAlly2.CharacterAttack;
+					SOEnemy1.IsHurt = true;
+					UpdateHPBarEnemy1 ();
+				}
+				if ((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly2) % 3 == 1) {
+					Debug.Log ("Enemy2Attacked");
+					SOEnemy2.CharacterCurrentHP -= SOAlly2.CharacterAttack;
+					SOEnemy2.IsHurt = true;
+					UpdateHPBarEnemy2 ();
+				}
+				if ((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly2) % 3 == 2) {
+					Debug.Log ("Enemy3Attacked");
+					SOEnemy3.CharacterCurrentHP -= SOAlly2.CharacterAttack;
+					SOEnemy3.IsHurt = true;
+					UpdateHPBarEnemy3 ();
+				}
+			}
+		}
+
+	}
+		
 	public void EnemyAttack (int WhichEnemy){
 	
-		PlusTurnDeadAlly1 ();
 
 		if (WhichEnemy == 1) {
 			SOEnemy1.IsAttacking = true;
@@ -118,41 +216,100 @@ public class HealAttackObject : MonoBehaviour {
 		if (WhichEnemy == 1) {
 
 
+
 			if (SOEnemy1.CharacterAlive){
+				if (((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy1) % 3 == 1) && (!SOAlly1.CharacterAlive)) {
+					ExtraTurnDeadEnemy1 += 1;
+				}
+				if (((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy1) % 3 == 2) && (!SOAlly2.CharacterAlive)) {
+					ExtraTurnDeadEnemy1 += 1;
+				}
+				if (((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy1) % 3 == 0) && (!SOAlly3.CharacterAlive)) {
+					ExtraTurnDeadEnemy1 += 1;
+				}
+
 				if ((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy1) % 3 == 1) { //Enemy attacks every turn someone else, and only different targets.
 					Debug.Log ("Ally1Attacked");
 					SOAlly1.CharacterCurrentHP -= SOEnemy1.CharacterAttack;
-					SOAlly1.Chara = true;
+					SOAlly1.IsHurt = true;
 					UpdateHPBarAlly1 ();
 				}
 				if ((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy1) % 3 == 2) {
 					Debug.Log ("Ally2Attacked");
-					SOAlly2.CharacterCurrentHP -= SOEnemy2.CharacterAttack;
+					SOAlly2.CharacterCurrentHP -= SOEnemy1.CharacterAttack;
+					SOAlly2.IsHurt = true;
 					UpdateHPBarAlly2 ();
 				}
 				if ((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy1) % 3 == 0) {
 					Debug.Log ("Ally3Attacked");
-					SOAlly3.CharacterCurrentHP -= SOEnemy3.CharacterAttack;
+					SOAlly3.CharacterCurrentHP -= SOEnemy1.CharacterAttack;
+					SOAlly3.IsHurt = true;
 					UpdateHPBarAlly3 ();
 				}
 			}
 		}
 
 		if (WhichEnemy == 2) {
-			if (SOEnemy1.CharacterAlive){
-				if ((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly1) % 3 == 2) { //Enemy attacks every turn someone else, and only different targets.
+			if (SOEnemy2.CharacterAlive){
+				if (((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy2) % 3 == 0) && (!SOAlly1.CharacterAlive)) {
+					ExtraTurnDeadEnemy2 += 1;
+				}
+				if (((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy2) % 3 == 1) && (!SOAlly2.CharacterAlive)) {
+					ExtraTurnDeadEnemy2 += 1;
+				}
+				if (((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy2) % 3 == 2) && (!SOAlly3.CharacterAlive)) {
+					ExtraTurnDeadEnemy2 += 1;
+				}
+
+				if ((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy2) % 3 == 0) { //Enemy attacks every turn someone else, and only different targets.
 					Debug.Log ("Ally1Attacked");
-					SOAlly1.CharacterCurrentHP -= SOEnemy1.CharacterAttack;
+					SOAlly1.CharacterCurrentHP -= SOEnemy2.CharacterAttack;
+					SOAlly1.IsHurt = true;
 					UpdateHPBarAlly1 ();
 				}
-				if ((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly2) % 3 == 0) {
+				if ((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy2) % 3 == 1) {
 					Debug.Log ("Ally2Attacked");
 					SOAlly2.CharacterCurrentHP -= SOEnemy2.CharacterAttack;
+					SOAlly2.IsHurt = true;
 					UpdateHPBarAlly2 ();
 				}
-				if ((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly3) % 3 == 1) {
+				if ((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy2) % 3 == 2) {
+					Debug.Log ("Ally3Attacked");
+					SOAlly3.CharacterCurrentHP -= SOEnemy2.CharacterAttack;
+					SOAlly3.IsHurt = true;
+					UpdateHPBarAlly3 ();
+				}
+			}
+		}
+
+		if (WhichEnemy == 3) {
+			if (SOEnemy3.CharacterAlive){
+				if (((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy3) % 3 == 2) && (!SOAlly1.CharacterAlive)) {
+					ExtraTurnDeadEnemy3 += 1;
+				}
+				if (((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy3) % 3 == 0) && (!SOAlly2.CharacterAlive)) {
+					ExtraTurnDeadEnemy3 += 1;
+				}
+				if (((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy3) % 3 == 1) && (!SOAlly3.CharacterAlive)) {
+					ExtraTurnDeadEnemy3 += 1;
+				}
+
+				if ((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy3) % 3 == 2) { //Enemy attacks every turn someone else, and only different targets.
+					Debug.Log ("Ally1Attacked");
+					SOAlly1.CharacterCurrentHP -= SOEnemy3.CharacterAttack;
+					SOAlly1.IsHurt = true;
+					UpdateHPBarAlly1 ();
+				}
+				if ((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy3) % 3 == 0) {
+					Debug.Log ("Ally2Attacked");
+					SOAlly2.CharacterCurrentHP -= SOEnemy3.CharacterAttack;
+					SOAlly2.IsHurt = true;
+					UpdateHPBarAlly2 ();
+				}
+				if ((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy3) % 3 == 1) {
 					Debug.Log ("Ally3Attacked");
 					SOAlly3.CharacterCurrentHP -= SOEnemy3.CharacterAttack;
+					SOAlly3.IsHurt = true;
 					UpdateHPBarAlly3 ();
 				}
 			}
@@ -257,18 +414,4 @@ public class HealAttackObject : MonoBehaviour {
 	}
 
 
-
-	void PlusTurnDeadAlly1 (){
-		
-	}
-
-/*	void PlusTurnDeadEnemy1 (){
-		if (((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly) % 3 == 0) && (!SOEnemy3.CharacterAlive)) {
-			ExtraTurnDeadAlly += 1;
-		} else if (((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly) % 3 == 1) && (!SOEnemy1.CharacterAlive)) {
-			ExtraTurnDeadAlly += 1;
-		} else if (((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly) % 3 == 2) && (!SOEnemy2.CharacterAlive)) {
-			ExtraTurnDeadAlly += 1;
-		}
-	}*/
 } 

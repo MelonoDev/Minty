@@ -36,6 +36,8 @@ public class BecomeSOCharacter : MonoBehaviour {
 		}
 		if (soCharacter.IsHurt) {
 			GetComponent<Renderer> ().material = soCharacter.CharacterHurt;
+			StartCoroutine (ReturnToIdle (1f)); //This is how long the material assignment is applied (which is the "animation")
+
 		}
 	}
 

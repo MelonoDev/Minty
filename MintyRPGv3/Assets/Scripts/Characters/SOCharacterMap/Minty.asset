@@ -14,7 +14,7 @@ MonoBehaviour:
   CharacterName: Minty
   CharacterNumber: 3
   CharacterMaxHP: 5
-  CharacterCurrentHP: 5
+  CharacterCurrentHP: 2
   CharacterAttack: 3
   CharacterHeal: 4
   CharacterPoisonous: 0
