@@ -103,11 +103,10 @@ public class TurnsStateMachine : MonoBehaviour {
 			break;
 		case State.Ally1:
 
-			if (singleActionAlly1) {
+			if (singleActionAlly1) { 				//first ally attacks
+				
 				singleActionAlly1 = !singleActionAlly1;
 				print ("Ally1");
-
-				//first ally attacks
 				Invoke ("AllyAtt1", attackTime);
 
 
@@ -117,25 +116,17 @@ public class TurnsStateMachine : MonoBehaviour {
 
 		case State.Ally2:
 
-			if (singleActionAlly2) {
+			if (singleActionAlly2) {				//second ally attacks
+				
 				singleActionAlly2 = !singleActionAlly2;
 				print ("Ally2");
 				Invoke ("AllyAtt2", attackTime);
 
-				//second ally attacks
 
 			}
 
 
-			//moet nog: if(hasattacked){
-
 			break;
-
-
-
-
-
-			//EDIT THE CASES BELOW HERE STILL (and up too actually)
 
 		case State.Ally3:
 
@@ -143,7 +134,7 @@ public class TurnsStateMachine : MonoBehaviour {
 				singleActionAlly3 = !singleActionAlly3;
 				print ("Ally3");
 				//Your turn!
-				NextState();
+
 
 			}
 

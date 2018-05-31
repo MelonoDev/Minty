@@ -57,6 +57,7 @@ public class HealAttackObject : MonoBehaviour {
 		
 	}
 
+	// General assignment of attacks
 	public void HealSingleAlly (string TargetPos){ //TargetPos gaat over de positie. Die verwijst naar CharaObject
 
 		activTargetAllies = targetAllies.GetComponent<ActivTargetAllies> ();
@@ -67,15 +68,15 @@ public class HealAttackObject : MonoBehaviour {
 		if (activTargetAllies.CurrentHeal == "HealOverTime") {
 			healOverTime (TargetPos);
 		}
-
-
 	}
 
 	public void HealAllAlly (){
 
+
 	}
 
 	public void AttackSingleEnemy (string TargetPos){
+		//if (activTargetEnemies
 
 	}
 		
@@ -97,6 +98,8 @@ public class HealAttackObject : MonoBehaviour {
 			allyMinty.IsHealing = true;
 			UpdateHPBarAlly1 ();
 		}
+
+		MintyHasAttacked ();
 	}
 
 	void healOverTime (string Trgt){
@@ -114,6 +117,7 @@ public class HealAttackObject : MonoBehaviour {
 			allyMinty.IsHealing = true;
 		}
 
+		MintyHasAttacked ();
 	}
 
 
@@ -413,5 +417,9 @@ public class HealAttackObject : MonoBehaviour {
 		HPBEnemy3.UpdateBar (SOEnemy3.CharacterCurrentHP, SOEnemy3.CharacterMaxHP);
 	}
 
+
+	void MintyHasAttacked(){
+		turnsStateMachine.NextState();
+	}
 
 } 
