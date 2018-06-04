@@ -39,6 +39,11 @@ public class BecomeSOCharacter : MonoBehaviour {
 			StartCoroutine (ReturnToIdle (1f)); //This is how long the material assignment is applied (which is the "animation")
 
 		}
+
+		if (soCharacter.CharacterCurrentHP <= 0) {
+			soCharacter.CharacterAlive = false;
+		}
+			
 	}
 
 	//	public void IsAttacking(int charNum){}

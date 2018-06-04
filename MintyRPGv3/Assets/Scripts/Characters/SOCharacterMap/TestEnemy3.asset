@@ -13,8 +13,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterName: TestEnemy3
   CharacterNumber: 3
-  CharacterMaxHP: 5
-  CharacterCurrentHP: 5
+  CharacterMaxHP: 12
+  CharacterCurrentHP: 12
   CharacterAttack: 3
   CharacterHeal: 0
   CharacterPoisonous: 0
@@ -24,7 +24,7 @@ MonoBehaviour:
   CharacterPermaDeath: 0
   IsIdle: 1
   IsHurt: 0
-  IsAttacking: 0
+  IsAttacking: 1
   IsHealing: 0
   CharacterIdle: {fileID: 2100000, guid: 96501cabb2db2cb49ba671718593f9f5, type: 2}
   CharacterHurt: {fileID: 2100000, guid: deccf8889a45993489fe769d206e8668, type: 2}

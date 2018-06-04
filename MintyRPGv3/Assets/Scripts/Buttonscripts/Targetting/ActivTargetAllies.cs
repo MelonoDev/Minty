@@ -10,7 +10,8 @@ public class ActivTargetAllies : MonoBehaviour {
 	void Awake(){
 		gameObject.SetActive (false);
 	}
-
+		
+	//Toggles between the existence of the Single Targets
 	public void Toggle(string Deselect) {
 		if (Deselect == CurrentHeal) {
 			ActivatedAlliesTarget = false;

@@ -11,6 +11,7 @@ public class ActivTargetAllAllies : MonoBehaviour {
 		gameObject.SetActive (false);
 	}
 
+	//Toggles between the existence of the All Targets
 	public void Toggle(string Deselect) {
 		if (Deselect == CurrentHeal){
 			ActivatedAlliesTarget = false;

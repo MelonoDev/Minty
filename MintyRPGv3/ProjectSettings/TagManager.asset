@@ -3,7 +3,14 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Target1
+  - TargetAlly
+  - ArrowA1
+  - ArrowA2
+  - ArrowE1
+  - ArrowE2
+  - ArrowE3
   layers:
   - Default
   - TransparentFX
