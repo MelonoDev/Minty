@@ -43,7 +43,10 @@ public class BecomeSOCharacter : MonoBehaviour {
 		if (soCharacter.CharacterCurrentHP <= 0) {
 			soCharacter.CharacterAlive = false;
 		}
-			
+
+		if (!soCharacter.CharacterAlive) {
+			GetComponent<Renderer> ().material = soCharacter.CharacterDying;
+		}
 	}
 
 	//	public void IsAttacking(int charNum){}

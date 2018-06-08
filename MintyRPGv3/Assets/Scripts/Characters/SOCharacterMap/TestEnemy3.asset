@@ -14,19 +14,20 @@ MonoBehaviour:
   CharacterName: TestEnemy3
   CharacterNumber: 3
   CharacterMaxHP: 12
-  CharacterCurrentHP: 12
+  CharacterCurrentHP: -1
   CharacterAttack: 3
   CharacterHeal: 0
   CharacterPoisonous: 0
-  CharacterAlive: 1
-  CharacterPoisoned: 0
+  CharacterAlive: 0
+  CharacterPoisoned: 1
   CharacterRegen: 0
   CharacterPermaDeath: 0
   IsIdle: 1
   IsHurt: 0
-  IsAttacking: 1
+  IsAttacking: 0
   IsHealing: 0
   CharacterIdle: {fileID: 2100000, guid: 96501cabb2db2cb49ba671718593f9f5, type: 2}
   CharacterHurt: {fileID: 2100000, guid: deccf8889a45993489fe769d206e8668, type: 2}
   CharacterAttacking: {fileID: 2100000, guid: 68779e50cf5416c4cae3fd263e884a3f, type: 2}
   CharacterHealing: {fileID: 2100000, guid: fc3847d9fef9ed14d886393ae9f8a737, type: 2}
+  CharacterDying: {fileID: 2100000, guid: 7a69b020d58f11746aae1dee44b451d1, type: 2}

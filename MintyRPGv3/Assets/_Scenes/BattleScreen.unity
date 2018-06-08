@@ -181,6 +181,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 48559069}
+--- !u!1 &48835712 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1226152182210096, guid: 964f6a17b5fff8840b17694fd9daff45,
+    type: 2}
+  m_PrefabInternal: {fileID: 864863034}
 --- !u!1 &52344497
 GameObject:
   m_ObjectHideFlags: 0
@@ -1090,7 +1095,7 @@ MonoBehaviour:
           m_StringArgument: AttackingMove
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 616265932}
+      - m_Target: {fileID: 0}
         m_MethodName: RootToggle
         m_Mode: 1
         m_Arguments:
@@ -3020,10 +3025,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 616265930}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b223b8cf38398649a988981d82c4e24, type: 3}
+  m_Script: {fileID: 11500000, guid: 31edd6a0e747f1b43a93a7fda63056cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActivatedAlliesTarget: 0
+  ActivatedEnemiesTarget: 0
   CurrentHeal: None
 --- !u!1 &628336996
 GameObject:
@@ -3954,9 +3959,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c10bbbe642e5e049855ea6d9280df0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SkillHealSingleTarget: {fileID: 0}
   targetAllies: {fileID: 642433609}
   activTargetAllies: {fileID: 0}
+  targetAllAllies: {fileID: 48835712}
+  activTargetAllAllies: {fileID: 0}
+  targetEnemies: {fileID: 616265930}
+  activTargetEnemies: {fileID: 0}
   SOAlly1: {fileID: 11400000, guid: 088294d355bb5bb4dbe74cc9602ddf0e, type: 2}
   SOAlly2: {fileID: 11400000, guid: 2e860a0b63b1c9147888e704b3d5303b, type: 2}
   SOAlly3: {fileID: 11400000, guid: 6f748f9cb66051042b29969b6e34d192, type: 2}
@@ -4402,6 +4410,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 237091503}
     m_Modifications:
+    - target: {fileID: 114979409004119932, guid: 964f6a17b5fff8840b17694fd9daff45,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 224599993239021070, guid: 964f6a17b5fff8840b17694fd9daff45,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -4526,6 +4539,31 @@ Prefab:
         type: 2}
       propertyPath: m_SizeDelta.y
       value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 114979409004119932, guid: 964f6a17b5fff8840b17694fd9daff45,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114979409004119932, guid: 964f6a17b5fff8840b17694fd9daff45,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114979409004119932, guid: 964f6a17b5fff8840b17694fd9daff45,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 805251454}
+    - target: {fileID: 114979409004119932, guid: 964f6a17b5fff8840b17694fd9daff45,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: HealAllAlly
+      objectReference: {fileID: 0}
+    - target: {fileID: 114979409004119932, guid: 964f6a17b5fff8840b17694fd9daff45,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 964f6a17b5fff8840b17694fd9daff45, type: 2}
@@ -5992,7 +6030,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1169417171}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 805251454}
+        m_MethodName: AttackSingleEnemy
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Enemy3
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1169417171
@@ -7863,7 +7912,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1552095315}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 805251454}
+        m_MethodName: AttackSingleEnemy
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Enemy2
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1552095315
@@ -10112,7 +10172,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2007539288}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 805251454}
+        m_MethodName: AttackSingleEnemy
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Enemy1
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &2007539288
@@ -10463,7 +10534,7 @@ GameObject:
   - component: {fileID: 2133535111}
   m_Layer: 0
   m_Name: InfoParent
-  m_TagString: Untagged
+  m_TagString: InfoParentTag
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

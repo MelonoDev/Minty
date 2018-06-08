@@ -31,6 +31,7 @@ public class SOCharacter : ScriptableObject {
 	public Material CharacterHurt;
 	public Material CharacterAttacking;
 	public Material CharacterHealing;
+	public Material CharacterDying;
 
 	//public void AlterHP (int Damage) {
 	//	CharacterCurrentHP += Damage;

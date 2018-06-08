@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class HealAttackObject : MonoBehaviour {
 
-	public GameObject SkillHealSingleTarget;
+	//public GameObject SkillHealSingleTarget;
 
 	//General targets for referencing which skill is to be used
 	public GameObject targetAllies;
-	public ActivTargetAllies activTargetAllies;
+	public ActivTargetAllies activTargetAllies; //call on at the start of minty selecting a single allied target
+	public GameObject targetAllAllies;
+	public ActivTargetAllAllies activTargetAllAllies; //call on at the start of minty selecting multiple allied targets
+	public GameObject targetEnemies; 
+	public ActivTargetEnemies activTargetEnemies; //call on at the start of minty selecting a single enemy target
 
+	 
 	//characters as object and their values
 	public SOCharacter SOAlly1;
 	public SOCharacter SOAlly2;
@@ -49,8 +54,10 @@ public class HealAttackObject : MonoBehaviour {
 
 	//SKILLS amounts
 	private int healAmount = 1;
+	private int attackAmount = 1;
+	private int healAllAmount = 2;
 	private int poisonAmount = 1;
-	private int regenAmount = 2;
+	private int regenAmount = 1;
 
 	//ref SKILLS amounts
 	public SOCharacter allyMinty;
@@ -60,9 +67,12 @@ public class HealAttackObject : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		healAmount = allyMinty.CharacterHeal;
+		attackAmount = allyMinty.CharacterAttack;
 	}
 
 	void Start(){
+		//targetEnemies = GameObject.Find ("TargetEnemies");
+
 		ArrowA1 = GameObject.FindGameObjectsWithTag ("ArrowA1");
 		ArrowA2 = GameObject.FindGameObjectsWithTag ("ArrowA2");
 		ArrowE1 = GameObject.FindGameObjectsWithTag ("ArrowE1");
@@ -79,12 +89,7 @@ public class HealAttackObject : MonoBehaviour {
 	}
 
 	void Update(){
-		ChangeArrowE1((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly1) % 3);
-		ChangeArrowE2((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly1) % 3);
-		ChangeArrowE3((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly1) % 3);
-		ChangeArrowA1((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly1) % 3);
-		ChangeArrowA2((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly1) % 3);
-
+		print ("extraturndeadally" + ExtraTurnDeadAlly1);
 	}
 
 	// General assignment of attacks
@@ -104,18 +109,30 @@ public class HealAttackObject : MonoBehaviour {
 	}
 
 	public void HealAllAlly (){
-		if (activTargetAllies.CurrentHeal == "HealAllAllies") {
+		activTargetAllAllies = targetAllAllies.GetComponent<ActivTargetAllAllies> ();
 
+
+		if (activTargetAllAllies.CurrentHeal == "HealAllTargets") {
+			healAllTargets ();
 		}
 
 	}
 
 	public void AttackSingleEnemy (string TargetPos){
-		//if (activTargetEnemies
+		
+		activTargetEnemies = targetEnemies.GetComponent<ActivTargetEnemies> ();
+
+
+		if (activTargetEnemies.CurrentHeal == "AttackSingleTarget") {
+			attackSingleTarget (TargetPos);
+		}
+		if (activTargetEnemies.CurrentHeal == "AttackOverTime") {
+			attackOverTime (TargetPos);
+		}
 
 	}
 		
-	//Attacks minty
+	//Single Target Healing Skills minty
 	void healSingleTarget (string Trgt){
 
 		if (Trgt == "Minty") {
@@ -175,6 +192,67 @@ public class HealAttackObject : MonoBehaviour {
 		MintyHasAttacked (); //Next state pls
 	}
 
+	//All Targets Healing Skills minty
+	void healAllTargets(){
+		SOAlly1.CharacterCurrentHP += healAllAmount;
+		SOAlly2.CharacterCurrentHP += healAllAmount;
+		SOAlly3.CharacterCurrentHP += healAllAmount;
+
+		allyMinty.IsHealing = true;
+
+		UpdateHPBarAlly1 ();
+		UpdateHPBarAlly2 ();
+		UpdateHPBarAlly3 ();
+
+		MintyHasAttacked (); //Next state pls
+	}
+
+	//Single Target Attacking Skills minty
+	void attackSingleTarget(string Trgt){
+		if (Trgt == "Enemy3") {
+			SOEnemy3.CharacterCurrentHP -= attackAmount;
+			allyMinty.IsAttacking = true;
+			SOEnemy3.IsHurt = true;
+			UpdateHPBarEnemy3 ();
+		}
+		if (Trgt == "Enemy2") {
+			SOEnemy2.CharacterCurrentHP -= attackAmount;
+			allyMinty.IsAttacking = true;
+			SOEnemy2.IsHurt = true;
+			UpdateHPBarEnemy2 ();
+		}
+		if (Trgt == "Enemy1") {
+			SOEnemy1.CharacterCurrentHP -= attackAmount;
+			allyMinty.IsAttacking = true;
+			SOEnemy1.IsHurt = true;
+			UpdateHPBarEnemy1 ();
+		}
+
+		MintyHasAttacked();
+	}
+
+	void attackOverTime(string Trgt){
+		if (Trgt == "Enemy3") {
+			SOEnemy3.CharacterPoisoned = true;
+			allyMinty.IsAttacking = true;
+			SOEnemy3.IsHurt = true;
+			UpdateHPBarEnemy3 ();
+		}
+		if (Trgt == "Enemy2") {
+			SOEnemy2.CharacterPoisoned = true;
+			allyMinty.IsAttacking = true;
+			SOEnemy2.IsHurt = true;
+			UpdateHPBarEnemy2 ();
+		}
+		if (Trgt == "Enemy1") {
+			SOEnemy1.CharacterPoisoned = true;
+			allyMinty.IsAttacking = true;
+			SOEnemy1.IsHurt = true;
+			UpdateHPBarEnemy1 ();
+		}
+
+		MintyHasAttacked();
+	}
 
 
 
@@ -230,6 +308,8 @@ public class HealAttackObject : MonoBehaviour {
 					UpdateHPBarEnemy3 ();
 				}
 				//activate the right next arrow
+				ChangeArrowA1((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly1) % 3);
+
 			}
 		}
 
@@ -272,6 +352,7 @@ public class HealAttackObject : MonoBehaviour {
 					}
 					UpdateHPBarEnemy3 ();
 				}
+				ChangeArrowA2((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly2) % 3);
 
 			}
 		}
@@ -334,6 +415,7 @@ public class HealAttackObject : MonoBehaviour {
 					UpdateHPBarAlly3 ();
 				}
 
+				ChangeArrowE1((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy1) % 3);
 			}
 		}
 
@@ -377,6 +459,7 @@ public class HealAttackObject : MonoBehaviour {
 					UpdateHPBarAlly3 ();
 				}
 
+				ChangeArrowE2((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy2) % 3);
 			}
 		}
 
@@ -420,6 +503,7 @@ public class HealAttackObject : MonoBehaviour {
 					UpdateHPBarAlly3 ();
 				}
 
+				ChangeArrowE3((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy3) % 3);
 			}
 		}
 	}
@@ -531,13 +615,13 @@ public class HealAttackObject : MonoBehaviour {
 				ArrowA1 [i].SetActive (false);
 		}
 		if (OpponentHit == 0) {
-			NextOpponent = 0; 
+			NextOpponent = 1; 
 		}
 		if (OpponentHit == 1) {
-			NextOpponent = 1;
+			NextOpponent = 2;
 		}
 		if (OpponentHit == 2) {
-			NextOpponent = 2;
+			NextOpponent = 0;
 		}
 		ArrowA1 [NextOpponent].SetActive(true); 
 	}
@@ -547,13 +631,13 @@ public class HealAttackObject : MonoBehaviour {
 			ArrowA2 [i].SetActive (false);
 		}
 		if (OpponentHit == 0) {
-			NextOpponent = 1;
+			NextOpponent = 0;
 		}
 		if (OpponentHit == 1) {
-			NextOpponent = 2;
+			NextOpponent = 1;
 		}
 		if (OpponentHit == 2) {
-			NextOpponent = 0;
+			NextOpponent = 2;
 		}
 		ArrowA2 [NextOpponent].SetActive(true); 
 	}
@@ -563,13 +647,13 @@ public class HealAttackObject : MonoBehaviour {
 			ArrowE1 [i].SetActive (false);
 		}
 		if (OpponentHit == 0) {
-			NextOpponent = 2;
+			NextOpponent = 0;
 		}
 		if (OpponentHit == 1) {
 			NextOpponent = 1;
 		}
 		if (OpponentHit == 2) {
-			NextOpponent = 0;
+			NextOpponent = 2;
 		}
 		ArrowE1 [NextOpponent].SetActive(true); 
 	}
@@ -598,10 +682,10 @@ public class HealAttackObject : MonoBehaviour {
 			NextOpponent = 0;
 		}
 		if (OpponentHit == 1) {
-			NextOpponent = 2;
+			NextOpponent = 1;
 		}
 		if (OpponentHit == 2) {
-			NextOpponent = 1;
+			NextOpponent = 2;
 		}
 		ArrowE3 [NextOpponent].SetActive(true); 
 	}

@@ -11,6 +11,7 @@ TagManager:
   - ArrowE1
   - ArrowE2
   - ArrowE3
+  - InfoParentTag
   layers:
   - Default
   - TransparentFX

@@ -3,35 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class OnHoverShowInfo : MonoBehaviour 
-     , IPointerEnterHandler
-     , IPointerExitHandler
-	 {
+public class OnHoverShowInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler {
 
-	public GameObject InfoPanel;
-	private bool showPanel = false;
+	public string WhichButtonIsHovered;
 
-	void Awake (){
-		InfoPanel = GameObject.Find("InfoParent");
+	void Start(){
+		WhichButtonIsHovered = this.name;
 	}
 
-	void Update (){
-		if (showPanel){
-			showPanel = false;
-			if (InfoPanel != null) {
-				InfoPanel.SetActive(true);
-			}
-		}
-	}
+	public void OnPointerEnter(){
 
-	public void OnPointerEnter (PointerEventData pointerEventData) {
-		showPanel = true;
-	}
-	
-	public void OnPointerExit (PointerEventData pointerEventData) {
-		if (InfoPanel != null) {
-			InfoPanel.SetActive(false);
-		}
-	}
+	} 
 }
  
