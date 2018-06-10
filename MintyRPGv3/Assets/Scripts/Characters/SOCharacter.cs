@@ -13,6 +13,7 @@ public class SOCharacter : ScriptableObject {
 
 	public int CharacterAttack;
 	public int CharacterHeal;
+	public int CharacterHealAll;
 
 	public bool CharacterPoisonous;
 

@@ -55,9 +55,9 @@ public class HealAttackObject : MonoBehaviour {
 	//SKILLS amounts
 	private int healAmount = 1;
 	private int attackAmount = 1;
-	private int healAllAmount = 2;
+	private int healAllAmount = 1;
 	private int poisonAmount = 1;
-	private int regenAmount = 1;
+	private int regenAmount = 2;
 
 	//ref SKILLS amounts
 	public SOCharacter allyMinty;
@@ -68,6 +68,7 @@ public class HealAttackObject : MonoBehaviour {
 	void Awake () {
 		healAmount = allyMinty.CharacterHeal;
 		attackAmount = allyMinty.CharacterAttack;
+		healAllAmount = allyMinty.CharacterHealAll;
 	}
 
 	void Start(){
@@ -86,12 +87,16 @@ public class HealAttackObject : MonoBehaviour {
 			ArrowE2 [i].SetActive (false);
 			ArrowE3 [i].SetActive (false);
 		}
-	}
 
-	void Update(){
-		print ("extraturndeadally" + ExtraTurnDeadAlly1);
-	}
+		//First Arrows activate!
+		ChangeArrowA1((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly1) % 3);
+		ChangeArrowA2((turnsStateMachine.TurnAmount + ExtraTurnDeadAlly2) % 3);
+		ChangeArrowE1((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy1) % 3);
+		ChangeArrowE2((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy2) % 3);
+		ChangeArrowE3((turnsStateMachine.TurnAmount + ExtraTurnDeadEnemy3) % 3);
 
+	}
+		
 	// General assignment of attacks
 	public void HealSingleAlly (string TargetPos){ //TargetPos gaat over de positie. Die verwijst naar CharaObject
 

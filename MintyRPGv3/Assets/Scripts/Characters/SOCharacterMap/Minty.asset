@@ -13,14 +13,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterName: Minty
   CharacterNumber: 3
-  CharacterMaxHP: 5
-  CharacterCurrentHP: 2
-  CharacterAttack: 2
-  CharacterHeal: 4
+  CharacterMaxHP: 7
+  CharacterCurrentHP: 1
+  CharacterAttack: 3
+  CharacterHeal: 6
+  CharacterHealAll: 2
   CharacterPoisonous: 0
   CharacterAlive: 1
-  CharacterPoisoned: 1
-  CharacterRegen: 1
+  CharacterPoisoned: 0
+  CharacterRegen: 0
   CharacterPermaDeath: 0
   IsIdle: 1
   IsHurt: 0

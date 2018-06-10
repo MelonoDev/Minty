@@ -9,7 +9,6 @@ public class BecomeSOCharacter : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Debug.Log (soCharacter.CharacterName);
 		soCharacter.ResetHP();
 		HPBar.UpdateBar(soCharacter.CharacterCurrentHP, soCharacter.CharacterMaxHP);
 
